@@ -1,0 +1,26 @@
+version: "3"
+services:
+  site-a:
+    image: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - reverse-proxy
+    environment:
+      - VIRTUAL_HOST=a.designsos.org
+      - LETSENCRYPT_HOST=a.designsos.org
+      - LETSENCRYPT_EMAIL=hillarywando@gmail.com
+  site-b:
+    image: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - reverse-proxy
+    environment:
+      - VIRTUAL_HOST=b.designsos.org
+      - LETSENCRYPT_HOST=b.designsos.org
+      - LETSENCRYPT_EMAIL=hillarywando@gmail.com
