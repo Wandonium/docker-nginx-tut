@@ -24,3 +24,6 @@ services:
       - VIRTUAL_HOST=b.designsos.org
       - LETSENCRYPT_HOST=b.designsos.org
       - LETSENCRYPT_EMAIL=hillarywando@gmail.com
+networks:
+  reverse-proxy:
+    driver: bridge
