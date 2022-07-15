@@ -1,4 +1,5 @@
 version: "3"
+name: ""
 services:
   site-a:
     image: nginx
@@ -20,4 +21,5 @@ services:
       - LETSENCRYPT_EMAIL=hillarywando@gmail.com
 networks:
   reverse-proxy:
-    driver: bridge
+    external:
+      name: reverse-proxy
