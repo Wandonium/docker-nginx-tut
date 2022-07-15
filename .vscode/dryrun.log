@@ -1,10 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/wando/Documents/docker-tut/docker-nginx-tut'
-docker run -d \
-    --name nginx-proxy \
-    -p 80:80 \
-    -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
-docker run -d --name site-a -e VIRTUAL_HOST=a.designsos.org nginx
-docker run -d --name site-b -e VIRTUAL_HOST=b.designsos.org httpd
 make: Leaving directory '/home/wando/Documents/docker-tut/docker-nginx-tut'
  
+Makefile:51: *** missing separator.  Stop.
+
