@@ -3,9 +3,6 @@ services:
   site-a:
     image: nginx
     restart: always
-    ports:
-      - "80:80"
-      - "443:443"
     networks:
       - reverse-proxy
     environment:
@@ -15,9 +12,6 @@ services:
   site-b:
     image: nginx
     restart: always
-    ports:
-      - "80:80"
-      - "443:443"
     networks:
       - reverse-proxy
     environment:
