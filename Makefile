@@ -47,6 +47,8 @@ nginx-proxy-https:
 	-e 'VIRTUAL_HOST=b.designsos.org' httpd
 
 nginx-proxy-compose:
+	# create reverse-proxy network
+	docker network create --driver bridge reverse-proxy
 	# make ssl certificates directory
 	mkdir certs
 	# run nginx-proxy
