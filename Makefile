@@ -73,3 +73,6 @@ nginx-proxy-compose:
 	cd site-b && $(MAKE) build
 	# run containers
 	docker-compose up
+
+ssh:
+	ssh wando@20.127.163.193
