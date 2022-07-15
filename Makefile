@@ -76,5 +76,47 @@ nginx-proxy-compose:
 	# run containers
 	docker-compose up -d
 
+nginx-proxy-compose2:
+	# create reverse-proxy network
+	docker network create --driver bridge reverse-proxy
+	# make ssl certificates directory
+	mkdir ${HOME}/certs
+	# run nginx-proxy
+	docker run -d -p 80:80 -p 443:443 \
+	--name nginx-proxy \
+	--net reverse-proxy \
+	-v ${HOME}/certs:/etc/nginx/certs:ro \
+	-v /etc/nginx/vhost.d \
+	-v /usr/share/nginx/html \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
+	--label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true \
+	jwilder/nginx-proxy
+	# run LetsEncrypt companion
+	docker run -d \
+	--name nginx-letsencrypt \
+	--net reverse-proxy \
+	--volumes-from nginx-proxy \
+	-v ${HOME}/certs:/etc/nginx/certs:rw \
+	-v /var/run/docker.sock:/var/run/docker.sock:ro \
+	jrcs/letsencrypt-nginx-proxy-companion
+	# build site-a image
+	cd site-a && $(MAKE) build
+	# build site-b image
+	cd site-b && $(MAKE) build
+	# run site-a container
+	docker run -d \
+    --name site-a \
+    --net reverse-proxy \
+    -e 'LETSENCRYPT_EMAIL=hillarywando@gmail.com' \
+    -e 'LETSENCRYPT_HOST=a.designsos.org' \
+    -e 'VIRTUAL_HOST=a.designsos.org' site-a
+	# run site-b container
+	docker run -d \
+    --name site-b \
+    --net reverse-proxy \
+    -e 'LETSENCRYPT_EMAIL=hillarywando@gmail.com' \
+    -e 'LETSENCRYPT_HOST=b.designsos.org' \
+    -e 'VIRTUAL_HOST=b.designsos.org' site-b
+
 ssh:
 	ssh wando@20.127.163.193

@@ -6,8 +6,8 @@ services:
     networks:
       - reverse-proxy
     environment:
-      - VIRTUAL_HOST=a.designsos.org
-      - LETSENCRYPT_HOST=a.designsos.org
+      - VIRTUAL_HOST=c.designsos.org
+      - LETSENCRYPT_HOST=c.designsos.org
       - LETSENCRYPT_EMAIL=hillarywando@gmail.com
   site-b:
     image: nginx
@@ -15,8 +15,8 @@ services:
     networks:
       - reverse-proxy
     environment:
-      - VIRTUAL_HOST=b.designsos.org
-      - LETSENCRYPT_HOST=b.designsos.org
+      - VIRTUAL_HOST=d.designsos.org
+      - LETSENCRYPT_HOST=d.designsos.org
       - LETSENCRYPT_EMAIL=hillarywando@gmail.com
 networks:
   reverse-proxy:
