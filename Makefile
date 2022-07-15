@@ -52,7 +52,7 @@ nginx-proxy-compose:
 	# make ssl certificates directory
 	mkdir ${HOME}/certs
 	# run nginx-proxy
-	docker run -d -p 80:80 443:443 \
+	docker run -d -p 80:80 -p 443:443 \
 	--name nginx-proxy \
 	--net reverse-proxy \
 	-v ${HOME}/certs:/etc/nginx/certs:ro \
